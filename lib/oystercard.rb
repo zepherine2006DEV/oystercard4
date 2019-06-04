@@ -1,6 +1,7 @@
 class Oystercard
 
-    attr_reader :balance
+    attr_accessor :balance
+    attr_accessor :state
 
     MAXIMUM_BALANCE = 90
 
@@ -13,5 +14,16 @@ class Oystercard
         @balance += amount
     end 
 
+    def deduct(amount)
+        @balance -= amount
+    end
+
+    def touch_in
+     @state = "in use"
+    end
+
+    def touch_out
+        @state = "not in use"
+       end
 
 end
