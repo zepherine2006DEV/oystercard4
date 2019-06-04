@@ -6,6 +6,7 @@ class Oystercard
     MAXIMUM_BALANCE = 90
 
     def initialize
+    @state = false 
     @balance = 0
     end
 
@@ -18,12 +19,12 @@ class Oystercard
         @balance -= amount
     end
 
-    def touch_in
-     @state = "in use"
+    def touch_in?
+     @state = true
     end
 
-    def touch_out
-        @state = "not in use"
+    def touch_out?
+        @state = false
        end
 
 end
