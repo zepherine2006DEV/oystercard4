@@ -1,7 +1,7 @@
 class Oystercard
 
     attr_accessor :balance
-    attr_accessor :state
+    # attr_accessor :state
 
     MAXIMUM_BALANCE = 90
 
@@ -19,12 +19,16 @@ class Oystercard
         @balance -= amount
     end
 
-    def touch_in?
+    def touch_in
      @state = true
     end
 
-    def touch_out?
+    def touch_out
         @state = false
+       end
+
+       def in_journey?
+        @state
        end
 
 end

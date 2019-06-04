@@ -23,17 +23,31 @@ describe Oystercard do
 
     it { is_expected.to respond_to(:deduct).with(1).argument }
 
-    it { is_expected.to respond_to(:touch_in?)}
+    it { is_expected.to respond_to(:touch_in)}
 
     it "card touch in, card staus changed to in use" do
-        expect(subject.touch_in?).to eq true
+        expect(subject.touch_in).to eq true
     end
 
     it "card touch out, card status not in use" do 
-        expect(subject.touch_out?).to eq false
+        
+        expect(subject.touch_out).to eq false
     end
  
+    describe "#in_journey" do
+    it { is_expected.to respond_to(:in_journey?)}
 
+    it "card touches in and we are in journey" do
+        subject.touch_in
+        expect(subject.in_journey?).to be true
+    end
+
+    it "card touches out and we are in journey" do
+        subject.touch_out
+        expect(subject.in_journey?).to be false
+    end
+
+end
 
 
     
