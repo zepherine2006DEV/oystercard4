@@ -23,20 +23,26 @@ describe Oystercard do
 
     it { is_expected.to respond_to(:deduct).with(1).argument }
 
+    it "can deduct from the card" do
+        expect{ subject.deduct 1 }.to change{ subject.balance }.by -1
+    end
+
     it { is_expected.to respond_to(:touch_in)}
 
     it "card touch in, card staus changed to in use" do
+        subject.top_up 1
         expect(subject.touch_in).to eq true
     end
 
     it "card touch out, card status not in use" do 
-        
+        subject.top_up 1     
         expect(subject.touch_out).to eq false
     end
  
     describe "#in_journey" do
 
     it "card touches in and we are in journey" do
+        subject.top_up 1
         subject.touch_in
         expect(subject.in_journey?).to be true
     end
@@ -44,6 +50,10 @@ describe Oystercard do
     it "card touches out and we are in journey" do
         subject.touch_out
         expect(subject.in_journey?).to be false
+    end
+
+    it "raises an exception when user tries to touch in with less than £1 balance" do
+        expect {subject.touch_in}.to raise_error
     end
 
 end
