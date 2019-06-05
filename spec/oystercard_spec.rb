@@ -21,11 +21,11 @@ describe Oystercard do
         expect{ subject.top_up 1 }.to raise_error 'maximum balance #{MAXIMUM_BALANCE} exceeded'
     end
 
-    it { is_expected.to respond_to(:deduct).with(1).argument }
+    # it { is_expected.to respond_to(:deduct).with(1).argument }
 
-    it "can deduct from the card" do
-        expect{ subject.deduct 1 }.to change{ subject.balance }.by -1
-    end
+    # it "can deduct from the card" do
+    #     expect{ subject.deduct 1 }.to change{ subject.balance }.by -1
+    # end
 
     it { is_expected.to respond_to(:touch_in)}
 
@@ -54,6 +54,10 @@ describe Oystercard do
 
     it "raises an exception when user tries to touch in with less than £1 balance" do
         expect {subject.touch_in}.to raise_error "minimum balance"
+    end
+
+    it "charging the minimum fare on touch out" do
+      expect {subject.touch_out}.to change{subject.balance}.by(-1)
     end
 
 end
