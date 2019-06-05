@@ -4,6 +4,7 @@ class Oystercard
     # attr_accessor :state
 
     MAXIMUM_BALANCE = 90
+    MINIMUM_BALANCE = 1
 
     def initialize
     @state = false 
@@ -20,7 +21,7 @@ class Oystercard
     end
 
     def touch_in
-      @balance < 1 ? (raise Exception.new("minimum balance")):@state = true
+      @balance < MINIMUM_BALANCE ? (raise Exception.new("minimum balance")):@state = true
     end
 
     def touch_out

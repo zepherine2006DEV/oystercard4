@@ -53,7 +53,7 @@ describe Oystercard do
     end
 
     it "raises an exception when user tries to touch in with less than £1 balance" do
-        expect {subject.touch_in}.to raise_error
+        expect {subject.touch_in}.to raise_error "minimum balance"
     end
 
 end
