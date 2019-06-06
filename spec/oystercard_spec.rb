@@ -19,9 +19,8 @@ describe Oystercard do
     end
 
     it "to raise an error if the maximum balance is exceeded" do
-        maximum_balance = Oystercard::MAXIMUM_BALANCE
-        subject.top_up(maximum_balance)
-        expect{ subject.top_up 1 }.to raise_error 'maximum balance #{MAXIMUM_BALANCE} exceeded'
+        subject.top_up(Oystercard::MAXIMUM_BALANCE)
+        expect{ subject.top_up 1 }.to raise_error "maximum balance £#{Oystercard::MAXIMUM_BALANCE} exceeded"
     end
   end
 
@@ -29,19 +28,19 @@ describe Oystercard do
     let!(:station1) { double "bank" }
     let!(:station2) { double "angel" }
 
-    xit "card touches out and we are not in journey" do
-        subject.touch_out
+    it "card touches out and we are not in journey" do
+        subject.touch_out(station1)
         expect(subject.in_journey?).to be false
     end
 
-    xit "charging the minimum fare on touch out" do
-      expect {subject.touch_out}.to change{subject.balance}.by(-1)
+    it "charging the minimum fare on touch out" do
+      expect {subject.touch_out(station1)}.to change{subject.balance}.by(-1)
     end
 
-    xit 'forgets entry station on touch out' do
+    it 'forgets entry station on touch out' do
       subject.top_up(10)
-      subject.touch_in(station)
-      subject.touch_out
+      subject.touch_in(station1)
+      subject.touch_out(station2)
       expect(subject.entry_station).to eq(nil)
     end
 
