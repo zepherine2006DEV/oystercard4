@@ -4,8 +4,8 @@ describe Oystercard do
 
   describe "#intialize" do
     it "has a balance" do
-        oystercard = Oystercard.new
-        expect(subject.balance).to eq(0)
+      oystercard = Oystercard.new
+      expect(subject.balance).to eq(0)
     end
 
     it 'should have an empty list of journeys' do
