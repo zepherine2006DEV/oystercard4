@@ -9,7 +9,7 @@ describe Oystercard do
     end
 
     it 'should have an empty list of journeys' do
-      expect(subject.journey_history).to eq([])
+      expect(subject.journey_history).to be_empty
     end
   end
 
@@ -39,12 +39,12 @@ describe Oystercard do
     end
 
     it "charges £#{Oystercard::MINIMUM_FARE}" do
-      expect {subject.touch_out(station1)}.to change{subject.balance}.by(-1)
+      expect {subject.touch_out(station1)}.to change{subject.balance}.by(-Oystercard::MINIMUM_FARE)
     end
 
     it 'forgets entry station' do
       subject.touch_out(station2)
-      expect(subject.entry_station).to eq(nil)
+      expect(subject.entry_station).to be_nil
     end
 
     it "stores journey" do
