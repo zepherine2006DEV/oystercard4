@@ -19,8 +19,9 @@ class Oystercard
         @balance -= amount
     end
 
-    def touch_in
+    def touch_in(station)
       @balance < 1 ? (raise Exception.new("minimum balance")):@state = true
+      return station
     end
 
     def touch_out

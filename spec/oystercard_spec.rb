@@ -27,13 +27,19 @@ describe Oystercard do
         expect{ subject.deduct 1 }.to change{ subject.balance }.by -1
     end
 
-    it { is_expected.to respond_to(:touch_in)}
+    # it { is_expected.to respond_to(:touch_in)}
 
-    it "card touch in, card staus changed to in use" do
-        subject.top_up 1
-        expect(subject.touch_in).to eq true
+    # it "card touch in, card staus changed to in use" do
+    #     subject.top_up 1
+    #     expect(subject.touch_in).to eq true
+    # end
+
+    it "store entry station when touch in" do
+        entry_station = double "station"
+        subject.touch_in(entry_station)
+        expect(subject.stored_station).to eq(entry_station)
     end
-
+    
     it "card touch out, card status not in use" do 
         subject.top_up 1     
         expect(subject.touch_out).to eq false
@@ -41,11 +47,11 @@ describe Oystercard do
  
     describe "#in_journey" do
 
-    it "card touches in and we are in journey" do
-        subject.top_up 1
-        subject.touch_in
-        expect(subject.in_journey?).to be true
-    end
+    # it "card touches in and we are in journey" do
+    #     subject.top_up 1
+    #     subject.touch_in
+    #     expect(subject.in_journey?).to be true
+    # end
 
     it "card touches out and we are in journey" do
         subject.touch_out
