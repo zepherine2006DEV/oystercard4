@@ -22,23 +22,32 @@ describe Oystercard do
   end
 
   describe "#touch_out" do
-    let(:station) { double "station" }
+    let!(:station1) { double "bank" }
+    let!(:station2) { double "angel" }
 
-    it "card touches out and we are not in journey" do
+    xit "card touches out and we are not in journey" do
         subject.touch_out
         expect(subject.in_journey?).to be false
     end
 
-    it "charging the minimum fare on touch out" do
+    xit "charging the minimum fare on touch out" do
       expect {subject.touch_out}.to change{subject.balance}.by(-1)
     end
 
-    it 'forgets entry station on touch out' do
+    xit 'forgets entry station on touch out' do
       subject.top_up(10)
       subject.touch_in(station)
       subject.touch_out
       expect(subject.entry_station).to eq(nil)
     end
+
+    it "stores journey on touch out" do
+      subject.top_up 10
+      subject.touch_in(station1)
+      subject.touch_out(station2)
+      expect(subject.journey_history).to include({entry: station1, exit: station2})
+    end
+
   end
 
   describe "#touch_in" do
