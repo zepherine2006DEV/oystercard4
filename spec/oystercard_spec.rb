@@ -33,18 +33,8 @@ describe Oystercard do
       subject.touch_in(station1)
     end
 
-    it "is no longer in journey" do
-      subject.touch_out(station1)
-      expect(subject.in_journey?).to be false
-    end
-
     it "charges £#{Oystercard::MINIMUM_FARE}" do
       expect {subject.touch_out(station1)}.to change{subject.balance}.by(-Oystercard::MINIMUM_FARE)
-    end
-
-    it 'forgets entry station' do
-      subject.touch_out(station2)
-      expect(subject.entry_station).to be_nil
     end
 
   end
