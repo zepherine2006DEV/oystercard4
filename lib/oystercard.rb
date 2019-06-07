@@ -20,13 +20,15 @@ class Oystercard
     def touch_in(station)
       check_minimum_balance
 
-      @entry_station = station
+      journey = Journey.new(station)
+      journey_history << journey
     end
 
     def touch_out(exit_station)
       deduct(MINIMUM_FARE)
-      store_journey(entry_station, exit_station)
-      @entry_station = nil
+
+      journey_history[-1].set_exit_station(exit_station)
+      # store_journey(entry_station, exit_station)
     end
 
     def in_journey?
@@ -35,9 +37,9 @@ class Oystercard
 
   private
 
-    def store_journey(entry_station, exit_station)
-      @journey_history << {entry: entry_station, exit: exit_station}
-    end
+    # def store_journey(entry_station, exit_station)
+    #   @journey_history << {entry: entry_station, exit: exit_station}
+    # end
 
     def deduct(amount)
       @balance -= amount

@@ -47,21 +47,10 @@ describe Oystercard do
       expect(subject.entry_station).to be_nil
     end
 
-    it "stores journey" do
-      subject.touch_out(station2)
-      expect(subject.journey_history).to include({entry: station1, exit: station2})
-    end
-
   end
 
   describe "#touch_in" do
     let(:station) { double "station" }
-
-    it "stores entry station" do
-      subject.top_up(10)
-      subject.touch_in(station)
-      expect(subject.entry_station).to eq(station)
-    end
 
     it "raises an exception when balance is less than £#{Oystercard::MINIMUM_FARE}" do
       expect {subject.touch_in(station)}.to raise_error "minimum balance required"
